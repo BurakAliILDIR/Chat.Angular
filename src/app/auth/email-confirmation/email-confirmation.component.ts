@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -9,7 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class EmailConfirmationComponent {
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -20,8 +21,8 @@ export class EmailConfirmationComponent {
           token: params['token'],
         }).subscribe({
           next: (v) => console.log(v),
-          error: (e) => console.info(e),
-          complete: () => console.info('complete')
+          error: (e) => this.toastr.error(e.error.Data.Message, e.error.Message),
+          complete: () => this.toastr.success('Email confirmed!', "Success")
         });
       });
   }

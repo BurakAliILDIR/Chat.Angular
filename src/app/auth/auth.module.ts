@@ -8,6 +8,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { EmailConfirmationComponent } from './email-confirmation/email-confirmation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,9 +22,15 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     RouterModule,
+    HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
   ]
 })
 export class AuthModule { }

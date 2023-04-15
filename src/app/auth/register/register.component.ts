@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private toastr: ToastrService) { }
 
   registerForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -22,8 +23,8 @@ export class RegisterComponent {
     console.log(this.registerForm.value);
     this.authService.register(this.registerForm.value).subscribe({
       next: (v) => console.log(v),
-      error: (e) => console.info(e),
-      complete: () => console.info('complete') 
+      error: (e) => this.toastr.error(e.error.Data.Message, e.error.Message),
+      complete: () => this.toastr.success('Sign up!', "Success")
   });
   }
 }
