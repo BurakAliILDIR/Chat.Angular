@@ -28,4 +28,8 @@ export class AuthService {
   resetPassword(data: object): Observable<Object> {
     return this.http.post(this.baseUrl + "/ResetPassword", data);
   }
+
+  emailConfirmation(data: object): Observable<Object> {
+    return this.http.post(this.baseUrl + "/EmailConfirmation", data);
+  }
 }
