@@ -18,8 +18,10 @@ export class LoginComponent {
 
   onSubmit() {
     console.log(this.loginForm.value);
-    this.authService.login(this.loginForm.value).subscribe(value => {
-      console.log(value)
-    });
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (v) => console.log(v),
+      error: (e) => console.info(e),
+      complete: () => console.info('complete') 
+  });
   }
 }

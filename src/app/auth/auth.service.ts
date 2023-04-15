@@ -17,4 +17,15 @@ export class AuthService {
     return this.http.post(this.baseUrl + "/Login", data);
   }
 
+  register(data: object): Observable<Object> {
+    return this.http.post(this.baseUrl + "/Register", data);
+  }
+
+  forgotPassword(data: object): Observable<Object> {
+    return this.http.post(this.baseUrl + "/ForgotPassword", data);
+  }
+
+  resetPassword(data: object): Observable<Object> {
+    return this.http.post(this.baseUrl + "/ResetPassword", data);
+  }
 }
