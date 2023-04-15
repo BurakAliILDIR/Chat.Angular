@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  usernameOrEmail = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
 }
