@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
+import { environment } from '../environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private baseUrl = "https://localhost:7208/api"
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -32,4 +33,9 @@ export class AuthService {
   emailConfirmation(data: object): Observable<Object> {
     return this.http.post(this.baseUrl + "/EmailConfirmation", data);
   }
+
+  refreshToken(data: string): Observable<Object> {
+    return this.http.post(this.baseUrl + "/RefreshToken", data);
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
