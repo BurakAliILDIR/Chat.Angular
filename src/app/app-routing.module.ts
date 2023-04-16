@@ -18,7 +18,8 @@ const routes: Routes = [
   {
     path: "chat", children:
       [
-        { path: "home", component: HomeComponent, }
+        { path: "home", component: HomeComponent, },
+        { path: "home/:username", component: HomeComponent, }
       ], canActivate: [AuthGuard]
   },
 ];
