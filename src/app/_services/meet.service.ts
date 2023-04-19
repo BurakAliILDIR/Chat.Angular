@@ -3,6 +3,7 @@ import { environment } from '../environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GetMessagesResponse } from '../_responses/messages.response';
+import { GetMeetsResponse } from '../_responses/meets.response';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class MeetService {
 
   constructor(private http: HttpClient) { }
 
-  getMeets(): Observable<Object> {
-    return this.http.post(this.baseUrl + "/Meets", {});
+  getMeets(): Observable<GetMeetsResponse> {
+    return this.http.post<GetMeetsResponse>(this.baseUrl + "/Meets", {});
   }
 
   getMessages(username: string): Observable<GetMessagesResponse> {

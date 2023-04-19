@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseResponse } from 'src/app/_models/base-response.model';
-import { JwtService } from 'src/app/_services/jwt.service';
-import { MeetService } from 'src/app/_services/meet.service';
+import {Component, OnInit} from '@angular/core';
+import {BaseResponse} from 'src/app/_models/base-response.model';
+import {JwtService} from 'src/app/_services/jwt.service';
+import {MeetService} from 'src/app/_services/meet.service';
+import {GetMeetsResponse} from "../../../_responses/meets.response";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat-home-meets',
@@ -9,18 +11,16 @@ import { MeetService } from 'src/app/_services/meet.service';
   styleUrls: ['./meets.component.css']
 })
 export class MeetsComponent implements OnInit {
-  meets: any;
+  response: GetMeetsResponse;
 
-  constructor(private meetService: MeetService) { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.meetService.getMeets().subscribe({
-      next: (value: BaseResponse) => {
-        this.meets = value.data
-      },
-      error: (error) => console.log(error),
-      complete: () => console.log("completed..")
-    })
+    this.activatedRoute.data.subscribe(
+      ({getMeets}) => {
+        console.log(getMeets);
+        this.response = getMeets;
+      })
   }
 
 }
