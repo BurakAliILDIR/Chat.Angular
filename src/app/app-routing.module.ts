@@ -8,7 +8,7 @@ import {EmailConfirmationComponent} from './auth/email-confirmation/email-confir
 import {HomeComponent} from './chat/home/home.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {getMessagesResolver} from './_resolvers/messages.resolver';
-import {getMeetsResolver} from "./_resolvers/meets.resolvers";
+import {getMeetsResolver} from "./_resolvers/meets.resolver";
 
 const routes: Routes = [
   {path: "", redirectTo: "chat/home", pathMatch: 'full'},
