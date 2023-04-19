@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { EmailConfirmationComponent } from './auth/email-confirmation/email-confirmation.component';
 import { HomeComponent } from './chat/home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { getMessagesResolver } from './_resolvers/messages.resolver';
 
 const routes: Routes = [
   { path: "", redirectTo: "chat/home", pathMatch: 'full' },
@@ -19,7 +20,7 @@ const routes: Routes = [
     path: "chat", children:
       [
         { path: "home", component: HomeComponent, },
-        { path: "home/:username", component: HomeComponent, }
+        { path: "home/:username", component: HomeComponent, resolve: { getMessages: getMessagesResolver } }
       ], canActivate: [AuthGuard]
   },
 ];

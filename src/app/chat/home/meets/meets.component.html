@@ -1,16 +1,17 @@
 <section class="flex flex-col pt-3 bg-gray-50 h-full overflow-y-scroll">
-    <label class="px-3">
-      <input class="rounded-lg p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
-        placeholder="Search..." />
-    </label>
-  
-    <ul class="mt-6">
-      <li *ngFor="let meet of meets" class="py-5 border-b px-3 transition hover:bg-indigo-100">
-        <a href="#" class="flex justify-between items-center">
-          <h3 class="text-lg font-semibold">{{ meet["receiver"] }}</h3>
-          <p class="text-md text-gray-400">{{ meet["createdAt"] | date: 'dd/MM/yyyy' }}</p>
-        </a>
-        <div class="text-md italic text-gray-400">{{ meet["lastMessage"] | slice:0:15 }}</div>
-      </li>
-    </ul>
-  </section>
+  <label class="px-3">
+    <input class="rounded-lg p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
+      placeholder="Search..." />
+  </label>
+
+  <ul class="mt-6">
+    <li *ngFor="let meet of meets" class="py-5 border-b px-3 transition hover:bg-indigo-100">
+      <a routerLink="/chat/home/{{ meet['receiver'] }}" routerLinkActive="active"
+        class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">{{ meet["receiver"] }}</h3>
+        <p class="text-md text-gray-400">{{ meet["createdAt"] | date: 'dd/MM/yyyy' }}</p>
+      </a>
+      <div class="text-md italic text-gray-400">{{ meet["lastMessage"] | slice:0:15 }}</div>
+    </li>
+  </ul>
+</section>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseResponse } from 'src/app/_models/base-response.model';
 import { JwtService } from 'src/app/_services/jwt.service';
 import { MeetService } from 'src/app/_services/meet.service';
@@ -8,7 +8,7 @@ import { MeetService } from 'src/app/_services/meet.service';
   templateUrl: './meets.component.html',
   styleUrls: ['./meets.component.css']
 })
-export class MeetsComponent {
+export class MeetsComponent implements OnInit {
   meets: any;
 
   constructor(private meetService: MeetService) { }
@@ -17,7 +17,6 @@ export class MeetsComponent {
     this.meetService.getMeets().subscribe({
       next: (value: BaseResponse) => {
         this.meets = value.data
-        console.log(this.meets);
       },
       error: (error) => console.log(error),
       complete: () => console.log("completed..")

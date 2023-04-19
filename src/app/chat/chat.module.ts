@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { UsersComponent } from './home/users/users.component';
 import { HomeComponent } from './home/home.component';
 import { MeetsComponent } from './home/meets/meets.component';
+import { MessagesComponent } from './home/messages/messages.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -10,10 +12,12 @@ import { MeetsComponent } from './home/meets/meets.component';
   declarations: [
     HomeComponent,
     UsersComponent,
-    MeetsComponent
+    MeetsComponent,
+    MessagesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class ChatModule { }
