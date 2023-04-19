@@ -49,6 +49,9 @@
         <span *ngFor="let message of response.data.messages">
             <div [ngClass]="{ 'text-right' : response.data.receiver != message.senderId }">{{ message.text }}</div>
         </span>
+        <span *ngFor="let message of messages">
+            <div>{{ message }}</div>
+        </span>
         <ul class="flex space-x-4 mt-12">
             <li
                 class="w-10 h-10 border rounded-lg p-1 cursor-pointer transition duration-200 text-indigo-600 hover:bg-blue-100">
@@ -83,7 +86,8 @@
         </ul>
     </section>
     <section class="mt-6 border rounded-xl bg-gray-50 mb-3">
-        <textarea class="w-full bg-gray-50 p-2 rounded-xl" placeholder="Type your reply here..." rows="3"></textarea>
+        <textarea [formControl]="messageFormControl" class="w-full bg-gray-50 p-2 rounded-xl"
+            placeholder="Type your reply here..." rows="3"></textarea>
         <div class="flex items-center justify-between p-2">
             <button class="h-6 w-6 text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,7 +95,7 @@
                         d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
                 </svg>
             </button>
-            <button class="bg-purple-600 text-white px-6 py-2 rounded-xl">Reply</button>
+            <button (click)="sendMessage()" class="bg-purple-600 text-white px-6 py-2 rounded-xl">Reply</button>
         </div>
     </section>
 </section>

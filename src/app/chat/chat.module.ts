@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { MeetsComponent } from './home/meets/meets.component';
 import { MessagesComponent } from './home/messages/messages.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class ChatModule { }

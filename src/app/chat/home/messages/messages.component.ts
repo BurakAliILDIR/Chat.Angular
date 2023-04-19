@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseResponse } from 'src/app/_models/base-response.model';
 import { GetMessagesResponse } from 'src/app/_responses/messages.response';
 import { MeetService } from 'src/app/_services/meet.service';
+import { SignalRService } from 'src/app/_services/signalr.service';
 
 @Component({
   selector: 'app-chat-home-messages',
@@ -13,8 +15,11 @@ export class MessagesComponent implements OnInit {
 
   username: string;
   response: GetMessagesResponse;
+  messages: string[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  messageFormControl = new FormControl('');
+
+  constructor(private activatedRoute: ActivatedRoute, private signalRService: SignalRService) { }
 
   ngOnInit() {
     this.username = this.activatedRoute.snapshot.paramMap.get('username');
@@ -23,5 +28,18 @@ export class MessagesComponent implements OnInit {
         console.log(getMessages);
         this.response = getMessages;
       });
+
+    this.signalRService.startConnection();
+
+    this.signalRService.on("ReceiveMessage", (value) => this.messages.push(value));
   }
+
+  sendMessage() {
+    this.signalRService.invoke("SendMessage",
+      { "ReceiverId": this.response.data.receiver, "Text": this.messageFormControl.value },
+      (value) => this.messages.push(value),
+      (error) => console.log(error)
+    );
+  }
+
 }

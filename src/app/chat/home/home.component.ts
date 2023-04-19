@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { SignalRService } from 'src/app/_services/signalr.service';
 
 @Component({
   selector: 'app-home',
@@ -7,5 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+
+
 
 }
