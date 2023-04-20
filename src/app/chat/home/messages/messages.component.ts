@@ -29,7 +29,7 @@ export class MessagesComponent implements OnInit {
     this.activatedRoute.data.subscribe(
       ({ getMessages }) => {
         this.response = getMessages;
-        this.response.data.messages.forEach(x=> this.previousMessages.push(x));
+        this.response.data.messages.forEach(x=> this.previousMessages.unshift(x));
       });
 
     this.signalRService.startConnection();
@@ -43,7 +43,7 @@ export class MessagesComponent implements OnInit {
 
     this.meetService.getMessages(this.username, this.page).subscribe({
       next: (value: GetMessagesResponse) => {
-        value.data.messages.forEach(x => this.previousMessages.push(x));
+        value.data.messages.forEach(x => this.previousMessages.unshift(x));
         console.log(value);
       },
       error: (error) => console.log(error),
