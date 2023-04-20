@@ -17,9 +17,7 @@ export class MeetService {
     return this.http.post<GetMeetsResponse>(this.baseUrl + "/Meets", {});
   }
 
-  getMessages(username: string): Observable<GetMessagesResponse> {
-    return this.http.post<GetMessagesResponse>(this.baseUrl + "/Meets/Get/Messages", {
-      receiverId: username
-    });
+  getMessages(username: string, page = 1): Observable<GetMessagesResponse> {
+    return this.http.get<GetMessagesResponse>(this.baseUrl + "/Meets?receiveId=" + username + "&page=" + page);
   }
 }

@@ -5,5 +5,5 @@ import { GetMessagesResponse } from "../_responses/messages.response";
 
 export const getMessagesResolver: ResolveFn<GetMessagesResponse> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        return inject(MeetService).getMessages(route.paramMap.get('username')!);
+        return inject(MeetService).getMessages(route.paramMap.get('username'), 1);
     };

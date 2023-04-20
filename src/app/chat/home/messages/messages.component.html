@@ -46,10 +46,14 @@
         </div>
     </div>
     <section>
-        <span *ngFor="let message of response.data.messages">
-            <div [ngClass]="{ 'text-right' : response.data.receiver != message.senderId }">{{ message.text }}</div>
+        <button (click)="upPage()">Daha fazla göster</button>
+        <span *ngFor="let message of previousMessages">
+            <div [ngClass]="{ 'text-right' : response.data.receiver != message.senderId }" class="mb-4"><span class="p-2 bg-blue-700 text-white rounded-full">{{ message.text }}</span></div>
         </span>
-        <span *ngFor="let message of messages">
+        <span *ngFor="let message of response.data.messages">
+            <div [ngClass]="{ 'text-right' : response.data.receiver != message.senderId }" class="mb-4"><span class="p-2 bg-blue-700 text-white rounded-full">{{ message.text }}</span></div>
+        </span>
+        <span *ngFor="let message of newMessages">
             <div [ngClass]="{ 'text-right' : message['me'] }">{{ message['text'] }}</div>
         </span>
         <ul class="flex space-x-4 mt-12">
