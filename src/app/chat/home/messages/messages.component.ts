@@ -15,7 +15,9 @@ export class MessagesComponent implements OnInit {
 
   username: string;
   response: GetMessagesResponse;
-  messages: string[] = [];
+  messages: object[] = [];
+
+
 
   messageFormControl = new FormControl('');
 
@@ -31,13 +33,16 @@ export class MessagesComponent implements OnInit {
 
     this.signalRService.startConnection();
 
-    this.signalRService.on("ReceiveMessage", (value) => this.messages.push(value));
+    this.signalRService.on("ReceiveMessage", (value) => this.messages.push({ text: value, me: false }));
   }
 
   sendMessage() {
     this.signalRService.invoke("SendMessage",
       { "ReceiverId": this.response.data.receiver, "Text": this.messageFormControl.value },
-      (value) => this.messages.push(value),
+      () => {
+        this.messages.push({ text: this.messageFormControl.value, me: true });
+        this.messageFormControl.setValue(null);
+      },
       (error) => console.log(error)
     );
   }
