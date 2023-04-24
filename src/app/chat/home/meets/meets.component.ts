@@ -16,9 +16,8 @@ export class MeetsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(
+    this.activatedRoute.data?.subscribe(
       ({getMeets}) => {
-        console.log(getMeets);
         this.response = getMeets;
       })
   }

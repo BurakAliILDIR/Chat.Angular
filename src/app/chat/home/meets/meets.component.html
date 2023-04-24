@@ -1,17 +1,19 @@
-<section class="flex flex-col pt-3 bg-gray-50 h-full overflow-y-scroll">
-  <label class="px-3">
-    <input class="rounded-lg p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
-      placeholder="Search..." />
-  </label>
+<main class="flex w-full h-full shadow-lg rounded-3xl">
+  <section class="flex flex-col pt-3 bg-gray-50 h-full overflow-y-scroll">
+    <label class="px-3">
+      <input class="rounded-lg p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
+        placeholder="Search..." />
+    </label>
 
-  <ul class="mt-6">
-    <li *ngFor="let meet of response.data" class="py-5 px-3 border-b transition hover:bg-indigo-100" routerLinkActive="bg-indigo-100" >
-      <a routerLink="/chat/home/{{ meet.receiver }}"
-        class="flex justify-between items-center">
-        <h3 class="text-lg font-semibold">{{ meet.receiver }}</h3>
-        <p class="text-md text-gray-400">{{ meet.createdAt | date: 'dd/MM/yyyy' }}</p>
-      </a>
-      <div class="text-md italic text-gray-400">{{ meet.lastMessage | slice:0:15 }}</div>
-    </li>
-  </ul>
-</section>
+    <ul class="mt-6">
+      <li *ngFor="let meet of response.data" class="py-5 px-3 border-b transition hover:bg-indigo-100"
+        routerLinkActive="bg-indigo-100">
+        <a routerLink="/chat/home/{{ meet.receiver }}" class="flex justify-between items-center">
+          <h3 class="text-lg font-semibold">{{ meet.receiver }}</h3>
+          <p class="text-md text-gray-400">{{ meet.createdAt | date: 'dd/MM/yyyy' }}</p>
+        </a>
+        <div class="text-md italic text-gray-400">{{ meet.lastMessage | slice:0:15 }}</div>
+      </li>
+    </ul>
+  </section>
+</main>

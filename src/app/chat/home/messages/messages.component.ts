@@ -17,8 +17,8 @@ export class MessagesComponent implements OnInit {
   username: string;
   page: number = 1;
   response: GetMessagesResponse;
-  newMessages: object[] = [];
   previousMessages: Message[] = [];
+  noneData: boolean = false;
 
   messageFormControl = new FormControl('');
 
@@ -26,25 +26,35 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.activatedRoute.snapshot.paramMap.get('username');
-    this.activatedRoute.data.subscribe(
+    this.activatedRoute.data?.subscribe(
       ({ getMessages }) => {
         this.response = getMessages;
-        this.response.data.messages.forEach(x=> this.previousMessages.unshift(x));
+        console.log(this.response.data);
+        this.response?.data?.messages.forEach(x => this.previousMessages.unshift(x));
+        this.noneData = getMessages.data?.messages.length < 10;
       });
 
     this.signalRService.startConnection();
 
-    this.signalRService.on("ReceiveMessage", (value) => this.newMessages.push({ text: value, me: false }));
+    this.signalRService.on("ReceiveMessage", (value) => {
+      this.previousMessages.push(value)
+    });
+
+    this.signalRService.on("DeletedMessage", (value) => {
+      this.previousMessages.filter(x => {
+        if (x.id == value) {
+          this.previousMessages.splice(this.previousMessages.indexOf(x), 1);
+        }
+      })
+    });
   }
 
   upPage() {
     this.page++;
-    console.log(this.page);
-
     this.meetService.getMessages(this.username, this.page).subscribe({
       next: (value: GetMessagesResponse) => {
-        value.data.messages.forEach(x => this.previousMessages.unshift(x));
-        console.log(value);
+        value.data?.messages.forEach(x => this.previousMessages.unshift(x));
+        this.noneData = value.data?.messages.length < 10;
       },
       error: (error) => console.log(error),
       complete: () => console.log("completed..")
@@ -55,8 +65,17 @@ export class MessagesComponent implements OnInit {
     this.signalRService.invoke("SendMessage",
       { "ReceiverId": this.response.data.receiver, "Text": this.messageFormControl.value },
       () => {
-        this.newMessages.push({ text: this.messageFormControl.value, me: true });
         this.messageFormControl.setValue(null);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  delete(id: string) {
+    this.signalRService.invoke("DeleteMessage",
+      { "Id": id },
+      () => {
+        //this.messageFormControl.setValue(null);
       },
       (error) => console.log(error)
     );
